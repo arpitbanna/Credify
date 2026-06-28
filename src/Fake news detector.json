@@ -1,0 +1,743 @@
+{
+  "name": "Fake news detector",
+  "nodes": [
+    {
+      "parameters": {
+        "model": "llama-3.3-70b-versatile",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatGroq",
+      "typeVersion": 1,
+      "position": [
+        1456,
+        1440
+      ],
+      "id": "23868bc3-3ded-4e60-8267-2c340817358b",
+      "name": "Groq Chat Model1",
+      "credentials": {
+        "groqApi": {
+          "id": "hkNDuxfA4p5u5JTL",
+          "name": "Groq account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "model": "llama-3.3-70b-versatile",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatGroq",
+      "typeVersion": 1,
+      "position": [
+        1488,
+        1872
+      ],
+      "id": "abb7b792-cbbd-4cf4-b459-262ec333a6e2",
+      "name": "Groq Chat Model2",
+      "credentials": {
+        "groqApi": {
+          "id": "hkNDuxfA4p5u5JTL",
+          "name": "Groq account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "content": "# User Input Layer",
+        "height": 464,
+        "width": 464,
+        "color": 2
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        208,
+        1088
+      ],
+      "typeVersion": 1,
+      "id": "c4498809-b0ab-4911-8a11-9335e1a660f9",
+      "name": "Sticky Note"
+    },
+    {
+      "parameters": {
+        "content": "# AI Analysis Engine (Parallel Processing)\n\n",
+        "height": 1024,
+        "width": 480,
+        "color": 3
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        1184,
+        1040
+      ],
+      "typeVersion": 1,
+      "id": "31fdab67-7975-48ff-b6fa-adae1c69da7e",
+      "name": "Sticky Note1"
+    },
+    {
+      "parameters": {
+        "content": "# Decision & Logic Layer",
+        "height": 1008,
+        "width": 432,
+        "color": 4
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        1824,
+        1040
+      ],
+      "typeVersion": 1,
+      "id": "98ebe784-61bb-4e2f-b36e-d465504fd7fc",
+      "name": "Sticky Note2"
+    },
+    {
+      "parameters": {
+        "content": "# Data Aggregation Layer\n",
+        "height": 672,
+        "width": 496,
+        "color": 6
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        2592,
+        1152
+      ],
+      "typeVersion": 1,
+      "id": "5db16fd4-37a5-4a68-9b8f-226d614d58ff",
+      "name": "Sticky Note3"
+    },
+    {
+      "parameters": {
+        "content": "# Final Decision Engine\n\n",
+        "height": 672,
+        "width": 480
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        3264,
+        912
+      ],
+      "typeVersion": 1,
+      "id": "e9a2f3ac-033a-4b17-8e30-123aa88e38d2",
+      "name": "Sticky Note4"
+    },
+    {
+      "parameters": {
+        "content": "# Fake News Detector - FOAI Capstone",
+        "height": 2448,
+        "width": 4736,
+        "color": 7
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        0,
+        -144
+      ],
+      "typeVersion": 1,
+      "id": "e627c924-40fe-4300-be1f-7b4b0fa950f8",
+      "name": "Sticky Note5"
+    },
+    {
+      "parameters": {
+        "content": "# Preprocessing & Query Builder\n",
+        "height": 512,
+        "width": 544,
+        "color": 5
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        864,
+        352
+      ],
+      "typeVersion": 1,
+      "id": "3fbae62e-36a3-4067-8f5b-a9814512c35b",
+      "name": "Sticky Note6"
+    },
+    {
+      "parameters": {
+        "model": "openai/gpt-oss-120b",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatGroq",
+      "typeVersion": 1,
+      "position": [
+        1168,
+        672
+      ],
+      "id": "24abd9b8-49d0-44a3-8010-936eccfacbf0",
+      "name": "Groq Chat Model",
+      "credentials": {
+        "groqApi": {
+          "id": "hkNDuxfA4p5u5JTL",
+          "name": "Groq account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "fake-news",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2.1,
+      "position": [
+        368,
+        1248
+      ],
+      "id": "cf54c20b-bc30-44a5-bc08-a90d39485723",
+      "name": "Receive News Input",
+      "webhookId": "82cdb2a7-7898-4185-95f1-1d7f286266e4"
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "=You are a keyword extraction system designed for news search.\n\nTask:\nExtract 5 to 7 highly relevant search keywords from the given news headline or text.\n\nRules:\n- Keep important names (people, teams, places)\n- Keep important nouns and verbs\n- Keep numbers if they add meaning (scores, counts, years)\n- Remove filler/stop words (like: the, is, in, to, of, and, for, on, at, a, an)\n- Do NOT repeat words\n- Do NOT add new information\n- Do NOT change meaning\n- Keep keywords concise and search-friendly\n\nOutput format (STRICT):\n- Return ONLY a single line of lowercase text\n- Words separated by a single space\n- No punctuation\n- No commas\n- No JSON\n- No explanation\n\nExample:\nInput: \"CSK wins 5th IPL title after thrilling final\"\nOutput: csk 5th ipl title wins final\n\nOutput format:\n\n{\n  \"keywords\": \"csk 5th ipl title wins final\"\n}\n\nNow extract keywords:\n\nNews:\n{{ $json.body.news }}",
+        "batching": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.chainLlm",
+      "typeVersion": 1.9,
+      "position": [
+        992,
+        480
+      ],
+      "id": "0c53a91d-c7f5-482a-87be-b123fe51b92b",
+      "name": "Convert into Keywords"
+    },
+    {
+      "parameters": {
+        "content": "# Real-Time News Verification Engine\n",
+        "height": 576,
+        "width": 1056,
+        "color": 3
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        1568,
+        336
+      ],
+      "typeVersion": 1,
+      "id": "4b8ab6d1-3816-472e-b5bb-8160f08198e9",
+      "name": "Sticky Note7"
+    },
+    {
+      "parameters": {
+        "url": "https://serpapi.com/search",
+        "sendQuery": true,
+        "queryParameters": {
+          "parameters": [
+            {
+              "name": "q",
+              "value": "={{ $json.text }}"
+            },
+            {
+              "name": "tbm",
+              "value": "nws"
+            },
+            {
+              "name": "location",
+              "value": "Austin, TX, Texas, United States"
+            },
+            {
+              "name": "api_key",
+              "value": "90b7422af86e531cf4b5ce0ebc74506077cb52a171a3bc4aef94087304b81cc6"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.4,
+      "position": [
+        1680,
+        592
+      ],
+      "id": "9b3f21ba-f602-43fe-877d-f88cf1d313cd",
+      "name": "Fetch Related News (SerpAPI)"
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "=You are a sentiment analysis system.\n\nAnalyze the sentiment of the given news.\n\nReturn ONLY valid JSON.\nDo NOT include:\n- markdown\n- backticks\n- ```json\n- explanations\n- extra text\n\nOutput format:\n\n{\n  \"sentiment\": \"Positive or Negative or Neutral\",\n  \"intensity\": \"Low or Medium or High\"\n}\n\nNews:\n{{ $json.body.news }}",
+        "batching": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.chainLlm",
+      "typeVersion": 1.9,
+      "position": [
+        1296,
+        1216
+      ],
+      "id": "992c1232-fd67-4bb4-b5ab-70a5ae95678a",
+      "name": "AI Sentiment Analyzer"
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "=Evaluate credibility of this news.\n\nRate credibility of this news from 0 to 100.\n\nOnly return number.\n\nReturn ONLY valid JSON.\nDo NOT include:\n- markdown\n- backticks\n- ```json\n- explanations\n- extra text\n\n{\n  \"credibility_score\": \"0-100\",\n}\n\nNews:\n{{ $json.body.news }}",
+        "batching": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.chainLlm",
+      "typeVersion": 1.9,
+      "position": [
+        1328,
+        1632
+      ],
+      "id": "3112b452-1d64-49e5-9bf4-0d12e0b05130",
+      "name": "AI Credibility Evaluator"
+    },
+    {
+      "parameters": {
+        "jsCode": "return [{ json: JSON.parse($input.first().json.text) }];\n"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        2000,
+        1216
+      ],
+      "id": "d5635cfb-dc15-442d-ba1a-e1145f4e761c",
+      "name": "Parse Sentiment Response"
+    },
+    {
+      "parameters": {
+        "jsCode": "return [{ json: JSON.parse($input.first().json.text) }];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        2016,
+        1632
+      ],
+      "id": "fd3dfb90-717d-45dd-9801-3c2babb9b6c4",
+      "name": "Parse Credibility Response"
+    },
+    {
+      "parameters": {
+        "mode": "combine",
+        "combineBy": "combineByPosition",
+        "numberInputs": 3,
+        "options": {}
+      },
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 3.2,
+      "position": [
+        2800,
+        1408
+      ],
+      "id": "74ab2e6b-7b3a-4787-87fb-a272fdf22460",
+      "name": "Combine AI Results"
+    },
+    {
+      "parameters": {
+        "jsCode": "const data = $input.first().json\n\n// 🔥 FIX: get articles from SerpAPI node\nconst articles = $('Fetch Related News (SerpAPI)').first().json.news_results || []\n\nconst matchedTitles = data.matchedArticles || []\n\n// Step 1: try matched articles\nlet topMatches = articles\n  .filter(a => matchedTitles.includes(a.title))\n  .slice(0, 3)\n\n// Step 2: fallback\nif (topMatches.length === 0) {\n  topMatches = articles.slice(0, 3)\n}\n\n// Step 3: format\ntopMatches = topMatches.map(a => ({\n  title: a.title,\n  source: a.source,\n  link: a.link,\n  image: a.thumbnail || a.image || \"\"\n}))\n\nreturn [{\n  json: {\n    news: $('Receive News Input').first().json.body.news,\n\n    verdict: data.verdict,\n    confidence: data.confidence,\n\n    sentiment: data.sentiment,\n    intensity: data.intensity,\n\n    credibility_score: data.credibility_score,\n\n    top_articles: topMatches,\n\n    disclaimer: \"This result is AI-generated and may not be 100% accurate.\"\n  }\n}]"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        3472,
+        1184
+      ],
+      "id": "49c5844f-094f-4beb-b2a2-da43e3ea48df",
+      "name": "Generate Final Verdict"
+    },
+    {
+      "parameters": {
+        "content": "# User Input Layer",
+        "height": 672,
+        "width": 496,
+        "color": 2
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        3984,
+        864
+      ],
+      "typeVersion": 1,
+      "id": "863999e1-c8a5-47e3-bd33-d9e7b0324783",
+      "name": "Sticky Note8"
+    },
+    {
+      "parameters": {
+        "operation": "appendOrUpdate",
+        "documentId": {
+          "__rl": true,
+          "value": "1pGr6fhwhL25WffNzb4Jb9N_AkcQ-_CTpXF1jTYwUUH4",
+          "mode": "list",
+          "cachedResultName": "Foai Capstone Project",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1pGr6fhwhL25WffNzb4Jb9N_AkcQ-_CTpXF1jTYwUUH4/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": 264038893,
+          "mode": "list",
+          "cachedResultName": "Sheet2",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1pGr6fhwhL25WffNzb4Jb9N_AkcQ-_CTpXF1jTYwUUH4/edit#gid=264038893"
+        },
+        "columns": {
+          "mappingMode": "autoMapInputData",
+          "value": {},
+          "matchingColumns": [
+            "news"
+          ],
+          "schema": [
+            {
+              "id": "news",
+              "displayName": "news",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "verdict",
+              "displayName": "verdict",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "confidence",
+              "displayName": "confidence",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "sentiment",
+              "displayName": "sentiment",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "intensity",
+              "displayName": "intensity",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "credibility_score",
+              "displayName": "credibility_score",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "top_articles",
+              "displayName": "top_articles",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "disclaimer",
+              "displayName": "disclaimer",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        4176,
+        992
+      ],
+      "id": "b8ccd154-0770-41a9-bd51-f358a9f4811a",
+      "name": "Store Results (Google Sheets)",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "4SXIdBIacw8BJp1W",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "respondWith": "allIncomingItems",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.5,
+      "position": [
+        4176,
+        1280
+      ],
+      "id": "227c2a12-e8df-4bfa-9572-20a9ee2a10f6",
+      "name": "Return API Response"
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "=You are a news verification system.\n\nCompare the input news with the list of articles.\n\nReturn ONLY JSON:\n{\n  \"verdict\": \"real\" or \"Uncertain\" or \"fake\",\n  \"confidence\": number (0-100)\n}\n\nRules:\n- strong = same news clearly reported\n- weak = similar but not exact\n- none = unrelated\n\nInput News:\n{{ $('Receive News Input').first().json.body.news }}\n\nArticles:\n{{\n  $json.news_results\n    .map(a => `Title: ${a.title}\\nSource: ${a.source}\\nSummary: ${a.snippet}`)\n    .join(\"\\n\\n\")\n}}",
+        "batching": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.chainLlm",
+      "typeVersion": 1.9,
+      "position": [
+        1952,
+        512
+      ],
+      "id": "58404845-4348-436c-b1b3-d29957aad218",
+      "name": "AI Semantic Matcher"
+    },
+    {
+      "parameters": {
+        "model": "openai/gpt-oss-120b",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatGroq",
+      "typeVersion": 1,
+      "position": [
+        2064,
+        688
+      ],
+      "id": "bc32b107-bc11-4fd0-9239-00fc43b0905d",
+      "name": "Groq Chat Model3",
+      "credentials": {
+        "groqApi": {
+          "id": "hkNDuxfA4p5u5JTL",
+          "name": "Groq account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "return  JSON.parse($input.first().json.text )"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        2336,
+        576
+      ],
+      "id": "72a449d0-dd7b-44a1-94d4-54542b66e132",
+      "name": "Parse AI Match Result"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Groq Chat Model1": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Sentiment Analyzer",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Groq Chat Model2": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Credibility Evaluator",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Groq Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Convert into Keywords",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Receive News Input": {
+      "main": [
+        [
+          {
+            "node": "AI Sentiment Analyzer",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "AI Credibility Evaluator",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Convert into Keywords",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Convert into Keywords": {
+      "main": [
+        [
+          {
+            "node": "Fetch Related News (SerpAPI)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Fetch Related News (SerpAPI)": {
+      "main": [
+        [
+          {
+            "node": "AI Semantic Matcher",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "AI Sentiment Analyzer": {
+      "main": [
+        [
+          {
+            "node": "Parse Sentiment Response",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "AI Credibility Evaluator": {
+      "main": [
+        [
+          {
+            "node": "Parse Credibility Response",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Parse Sentiment Response": {
+      "main": [
+        [
+          {
+            "node": "Combine AI Results",
+            "type": "main",
+            "index": 1
+          }
+        ]
+      ]
+    },
+    "Parse Credibility Response": {
+      "main": [
+        [
+          {
+            "node": "Combine AI Results",
+            "type": "main",
+            "index": 2
+          }
+        ]
+      ]
+    },
+    "Combine AI Results": {
+      "main": [
+        [
+          {
+            "node": "Generate Final Verdict",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Generate Final Verdict": {
+      "main": [
+        [
+          {
+            "node": "Store Results (Google Sheets)",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Return API Response",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "AI Semantic Matcher": {
+      "main": [
+        [
+          {
+            "node": "Parse AI Match Result",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Groq Chat Model3": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Semantic Matcher",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Parse AI Match Result": {
+      "main": [
+        [
+          {
+            "node": "Combine AI Results",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": true,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate",
+    "availableInMCP": false
+  },
+  "versionId": "f700a1d2-23af-4f1c-bedc-41400f79053f",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "3ab5ddde00039445bc9352b44666836849568ec005dd15584d0eb375b0d3d274"
+  },
+  "id": "u6FvvYUfq3Qbokay",
+  "tags": []
+}
