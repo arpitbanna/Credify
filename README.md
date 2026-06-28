@@ -2,7 +2,8 @@
 
 A production-level AI Fake News Detector web application. CREDIFY is a clean, futuristic, high-end SaaS tool designed to analyze news headlines and articles using a hybrid AI decision engine.
 
-![Credify Screenshot](https://via.placeholder.com/1200x600.png?text=Credify+Dashboard)
+![Credify Screenshot](public/webpage.png)
+![n8n Screenshot](public/n8n_workflow.png)
 
 ## 🚀 Features
 
